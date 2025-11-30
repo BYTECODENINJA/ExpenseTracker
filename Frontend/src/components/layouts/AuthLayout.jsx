@@ -1,5 +1,5 @@
 import React from 'react'
-import chart from '../../assets/images/chart.png'
+import chart from '../../assets/images/chart.jpeg'
 import {LuTrendingUpDown} from "react-icons/lu";
 
 const AuthLayout = ({children}) => {
@@ -22,7 +22,7 @@ const AuthLayout = ({children}) => {
                 />
             </div>
 
-            <img src={chart} className="w-64 lg:w-[90%] absolute bottom-10 shadow-lg shadow-blue-400/15 "/>
+            <img src={chart} className="w-74 lg:w-[95%] absolute bottom-15 shadow-lg shadow-blue-400/15 rounded-2xl"/>
         </div>
         </div>;
 
@@ -36,7 +36,7 @@ const StatsInfocard = ({icon, label, value, color}) => {
         </div>
         <div>
             <h6 className="text-x5 text-gray-500 mb-1">{label}</h6>
-            <span className="text-[20px]">${value}</span>
+            <span className="text-[20px]">Ksh{value}</span>
         </div>
     </div>
 }

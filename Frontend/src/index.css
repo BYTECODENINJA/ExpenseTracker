@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Iceberg&family=Rationale&display=swap');
+@import "tailwindcss";
+
+@theme{
+    --font-display: "Rationale";
+    --breakpoint-3xl: 1920px;
+    --color-primary: #875cf5;
+}
+
+@layer base {
+    html {
+        font-family: var(--font-display);
+    }
+
+    body {
+        background-color: #fcfbfce;
+        overflow-x: hidden;
+    }
+}

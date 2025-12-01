@@ -24,8 +24,7 @@ const App = () => {
 }
 
 const AppContent = () => {
-    useUserAuth(); // Hook now runs inside Router context
-    const { loading } = useContext(UserContext);
+    const { user, loading } = useUserAuth();
 
     if (loading) {
         return <div>Loading...</div>; // Or a spinner component

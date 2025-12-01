@@ -5,7 +5,7 @@ import axiosInstance from "../utils/axiosInstance.js";
 import { API_PATHS } from "../utils/apiPaths.js";
 
 export const useUserAuth = () => {
-    const { user, updateUser, clearUser, setLoading } = useContext(UserContext);
+    const { user, updateUser, clearUser, loading, setLoading } = useContext(UserContext);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -49,4 +49,5 @@ export const useUserAuth = () => {
         };
     }, []);
 
+    return { user, loading };
 };

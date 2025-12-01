@@ -22,15 +22,26 @@ const SideMenu = ({ activeMenu, user }) => {
     };
 
     return (
-        <div className='w-64 bg-[#111827] p-5 backdrop-blur-[2px] fixed top-[61px] left-0 z-40 h-screen overflow-y-auto'>
+        <div className='w-64 h-[calc(100vh-61px)] bg-green-800 boreder-r border-gray-200/50 p-5 sticky top-[61px]  z-20'>
             <div className="flex flex-col items-center text-center py-5">
-                <img
-                    src={user?.profileImageUrl || "/profile-placeholder.png"}
-                    alt="profile-pic"
-                    className="rounded-full w-24 h-24 object-cover mb-3 shadow-lg"/>
-                <h5 className="text-white text-lg font-semibold truncate">
-                    {user?.fullName || "Welcome Back!"}
+                {user?.profileImageUrl? (
+                        <img
+                            src={user?.profileImageUrl || ""}
+                            alt="profile-pic"
+                            className="rounded-full w-24 h-24 object-cover mb-3 shadow-lg"/>
+                ): (
+                    <CharAvatar
+                    fulName={user?.fullName}
+                    width='w-20'
+                    height='h-20'
+                    style='text-xl'
+                    />
+            )}
+                <h5 className='text-gray-950 font-medium leading-6'>
+                    {user?.fullName ||""}
                 </h5>
+
+
             </div>
 
             {SIDE_MENU_DATA.map((item, index) => (

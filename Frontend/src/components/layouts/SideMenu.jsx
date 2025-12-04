@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { SIDE_MENU_DATA } from "../../utils/data.js";
 import { UserContext } from "../../context/userContext.jsx";
+import CharAvatar from "../Cards/CharAvatar.jsx";
 import { useNavigate } from "react-router-dom";
 
 const SideMenu = ({ activeMenu, user }) => {
@@ -22,23 +23,23 @@ const SideMenu = ({ activeMenu, user }) => {
     };
 
     return (
-        <div className='w-64 h-[calc(100vh-61px)] bg-green-800 boreder-r border-gray-200/50 p-5 sticky top-[61px]  z-20'>
+        <div className='w-64 h-[calc(100vh-61px)] bg-[#43506c] boreder-r border-[#ef4b4c] p-5 sticky top-[61px]  z-20'>
             <div className="flex flex-col items-center text-center py-5">
-                {user?.profileImageUrl? (
-                        <img
-                            src={user?.profileImageUrl || ""}
-                            alt="profile-pic"
-                            className="rounded-full w-24 h-24 object-cover mb-3 shadow-lg"/>
-                ): (
+                {user?.profileImageUrl ? (
+                    <img
+                        src={user?.profileImageUrl || ""}
+                        alt="profile-pic"
+                        className="rounded-full w-24 h-24 object-cover mb-3 shadow-lg" />
+                ) : (
                     <CharAvatar
-                    fulName={user?.fullName}
-                    width='w-20'
-                    height='h-20'
-                    style='text-xl'
+                        fulName={user?.fullName}
+                        width='w-20'
+                        height='h-20'
+                        style='text-xl'
                     />
-            )}
+                )}
                 <h5 className='text-gray-950 font-medium leading-6'>
-                    {user?.fullName ||""}
+                    {user?.fullName || ""}
                 </h5>
 
 

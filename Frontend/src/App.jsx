@@ -12,11 +12,37 @@ import Income from "./pages/Dashboard/Income.jsx";
 import Expense from "./pages/Dashboard/Expense.jsx";
 import { UserContext, UserContextProvider } from './context/userContext.jsx';
 import { useUserAuth } from './hooks/useUserAuth';
+import {Toaster} from "react-hot-toast";
 
 const App = () => {
     return (
         <UserContextProvider>
             <Router>
+                <Toaster
+                    position="top-right"
+                    reverseOrder={false}
+                    toastOptions={{
+                        duration: 3000,
+                        style: {
+                            background: '#363636',
+                            color: '#fff',
+                        },
+                        success: {
+                            duration: 3000,
+                            iconTheme: {
+                                primary: '#4ade80',
+                                secondary: '#fff',
+                            },
+                        },
+                        error: {
+                            duration: 3000,
+                            iconTheme: {
+                                primary: '#ef4444',
+                                secondary: '#fff',
+                            },
+                        },
+                    }}
+                />
                 <AppContent />
             </Router>
         </UserContextProvider>

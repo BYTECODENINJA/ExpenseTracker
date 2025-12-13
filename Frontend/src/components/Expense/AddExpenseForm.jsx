@@ -2,40 +2,40 @@ import React, {useState} from 'react'
 import Input from "../Inputs/Input.jsx";
 import EmojiPickerPopup from "../layouts/EmojiPickerPopup.jsx";
 
-const AddIncomeForm = ({onAddIncome}) => {
-    const [income, setIncome] = useState({
-            source: '',
+const AddExpenseForm = ({onAddExpense}) => {
+    const [expense, setExpense] = useState({
+            category: '',
             amount: '',
             date: '',
             icon: '',
         }
     )
-    const handleChange = (key, value) => setIncome({...income, [key]: value})
+    const handleChange = (key, value) => setExpense({...expense, [key]: value})
     return (
         <div>
 
             <EmojiPickerPopup
-                icon={income.icon}
+                icon={expense.icon}
                 onSelect={(selectedIcon) => handleChange("icon", selectedIcon)}
             />
             <Input
                 type="text"
-                value={income.source}
-                onChange={({target}) => handleChange("source", target.value)}
-                label='Income Source'
-                placeholder='Freelance, salary, etc'
+                value={expense.category}
+                onChange={({target}) => handleChange("category", target.value)}
+                label='Expense Category'
+                placeholder='Food, Transport, etc'
             />
 
             <Input
                 type="number"
-                value={income.amount}
+                value={expense.amount}
                 onChange={({target}) => handleChange("amount", target.value)}
                 label='Amount'
                 placeholder='Enter the Amount'
             />
 
             <Input
-                value={income.date}
+                value={expense.date}
                 onChange={({target}) => handleChange("date", target.value)}
                 label='Date'
                 placeholder='Enter the date'
@@ -46,8 +46,8 @@ const AddIncomeForm = ({onAddIncome}) => {
                 <button
                     type={'button'}
                     className='add-btn'
-                    onClick={()=> onAddIncome(income)}>
-                    Add Income
+                    onClick={()=> onAddExpense(expense)}>
+                    Add Expense
                 </button>
             </div>
 
@@ -55,4 +55,5 @@ const AddIncomeForm = ({onAddIncome}) => {
         </div>
     )
 }
-export default AddIncomeForm
+export default AddExpenseForm
+

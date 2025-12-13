@@ -23,7 +23,7 @@ exports.addIncome = async (req, res) => {
         });
 
         await newIncome.save();
-        res.status(200).json(newIncome);
+        res.status(200).json({message: "Income added successfully", income: newIncome});
     } catch (error) {
         res.status(500).json({message: "Server error"});
     }
@@ -44,6 +44,17 @@ exports.getAllIncome = async (req, res) => {
 //delete income
 exports.deleteIncome  = async  (req, res) => {
     try {
+        const userId = req.user.id;
+        const income = await Income.findById(req.params.id);
+        
+        if (!income) {
+            return res.status(404).json({message: "Income not found"});
+        }
+        
+        if (income.userId.toString() !== userId) {
+            return res.status(403).json({message: "Not authorized to delete this income"});
+        }
+        
         await Income.findByIdAndDelete(req.params.id);
         res.json({message: "Income deleted successfully"});
     }catch(error) {
@@ -60,7 +71,7 @@ exports.downloadIncomeExcel = async (req, res) => {
 
         //prepare data for excel
         const data = income.map((item)=> ({
-            Source: item.Source,
+            Source: item.source,
             Amount: item.amount,
             Date: item.date,
         }));
@@ -68,7 +79,11 @@ exports.downloadIncomeExcel = async (req, res) => {
         const wb = xlsx.utils.book_new();
         const ws = xlsx.utils.json_to_sheet(data);
         xlsx.utils.book_append_sheet(wb, ws, "Income Excel");
-        xlsx.WriteFile(wb, "income_details.xlsx");
+        
+        const buffer = xlsx.write(wb, { type: 'buffer', bookType: 'xlsx' });
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        res.setHeader('Content-Disposition', 'attachment; filename=income_details.xlsx');
+        res.send(buffer);
     } catch (error) {
         res.status(500).json({message: "Server error"});
     }

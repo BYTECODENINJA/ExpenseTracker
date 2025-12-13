@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import DashboardLayout from "../../components/layouts/DashboardLayout.jsx";
 import axiosInstance from "../../utils/axiosInstance.js";
 import { API_PATHS } from "../../utils/apiPaths.js";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import InfoCard from "../../components/Cards/InfoCard.jsx";
 
 import { LuHandCoins, LuWalletMinimal } from "react-icons/lu";
@@ -23,6 +23,7 @@ const Home = () => {
     const [dashboardData, setDashboardData] = useState(null);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
 
 
     const fetchDashboardData = async () => {
@@ -48,7 +49,7 @@ const Home = () => {
     useEffect(() => {
         fetchDashboardData();
         return () => { };
-    }, [])
+    }, [location.pathname])
 
     return (
         <DashboardLayout activeMenu="Dashboard">
@@ -98,7 +99,7 @@ const Home = () => {
 
                    <RecentIncomeWithChart
                        data={dashboardData?.last60DaysIncome?.transactions?.slice(0,4) || []}
-                       totalIncome={dashboardData?.totalIncome || 0}
+                       totalIncome={dashboardData?.last60DaysIncome?.total || 0}
                        />
 
                     <RecentIncome

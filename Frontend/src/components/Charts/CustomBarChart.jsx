@@ -13,6 +13,14 @@ import {
 import customTooltip from "./CustomTooltip.jsx";
 
 const CustomBarChart = ({data}) => {
+    // Handle empty or undefined data
+    if (!data || data.length === 0) {
+        return (
+            <div className="bg-[#1a3365] mt-5 rounded-xl p-8">
+                <p className="text-[#ffbb00] text-center">No data available</p>
+            </div>
+        );
+    }
 
     //Function to alternate colors
     const getBarColor = (index) => {
@@ -24,11 +32,14 @@ const CustomBarChart = ({data}) => {
 
     const customTooltip = ({active, payload}) => {
         if (active && payload && payload.length) {
+            const payloadData = payload[0].payload;
+            const label = payloadData.category || payloadData.Source || payloadData.Month || 'N/A';
+            const amount = payloadData.amount || payloadData.Amount || 0;
             return (
                 <div className="bg-[#1a3365] rounded-xl p-2">
-                    <p className="text-[#ffbb00] font-bold">{payload[0].payload.category}</p>
+                    <p className="text-[#ffbb00] font-bold">{label}</p>
                     <p className='text-sm text-gray-600'>
-                        Amount: <span className='text-sm font-medium text-gray-900'>Ksh{payload[0].payload.amount}</span>
+                        Amount: <span className='text-sm font-medium text-gray-900'>Ksh{amount}</span>
                     </p>
                 </div>
             );

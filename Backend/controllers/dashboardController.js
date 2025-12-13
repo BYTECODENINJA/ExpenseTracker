@@ -1,12 +1,12 @@
 const Income = require("../models/Income");
 const Expense = require("../models/Expense");
-const {isValidObjectId, types} = require("mongoose");
+const {isValidObjectId, Types} = require("mongoose");
 
 //Dashboaed data
 exports.getDashboardData = async (req, res) => {
     try{
         const userId = req.user.id;
-        const userObjectId = new types.ObjectId(userId);
+        const userObjectId = new Types.ObjectId(userId);
 
         //Fetch total income and expenses
         const totalIncome = await Income.aggregate([
@@ -21,12 +21,12 @@ exports.getDashboardData = async (req, res) => {
 
         //Get income transaction in the last 60 days
         const last60DaysIncomeTransactions = await Income.find({
-            userId,
+            userId: userObjectId,
             date: {$gte: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000)},
         }).sort({date: -1});
 
         const last30DaysExpenseTransactions = await Expense.find({
-            userId,
+            userId: userObjectId,
             date: {$gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)},
         }).sort({date: -1});
 
@@ -41,12 +41,12 @@ exports.getDashboardData = async (req, res) => {
 
         //Fetch last 5 transactions (income and expenses)
         const lastTransactions = [
-            ...(await Income.find({userId}).sort({date: -1}).limit(5)).map(
+            ...(await Income.find({userId: userObjectId}).sort({date: -1}).limit(5)).map(
                 (txn) => ({
                     ...txn.toObject(),
                     type: "income",})
             ),
-            ...(await Expense.find({userId}).sort({date: -1}).limit(5)).map(
+            ...(await Expense.find({userId: userObjectId}).sort({date: -1}).limit(5)).map(
                 (txn) => ({
                     ...txn.toObject(),
                     type: "expense",})
@@ -58,7 +58,7 @@ exports.getDashboardData = async (req, res) => {
             totalBalance:
                 (totalIncome[0]?.totalIncome || 0) - (totalExpense[0]?.totalExpense || 0),
             totalIncome: totalIncome[0]?.totalIncome || 0,
-            totalExpenses: totalExpense[0]?.totalExpense || 0,
+            totalExpense: totalExpense[0]?.totalExpense || 0,
             last30DaysExpenses: {
                 total: expensesLast30Days,
                 transactions: last30DaysExpenseTransactions,

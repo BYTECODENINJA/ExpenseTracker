@@ -6,7 +6,7 @@ import CustomLegend from "./CustomLegend.jsx";
 const CustomPieChart = ({data, label, colors, showTextAnchor, totalAmount}) => {
     return <ResponsiveContainer width="100%" height={380}>
         <PieChart>
-            <pie
+            <Pie
                 data={data}
                 dataKey="Amount"
                 nameKey="name"
@@ -19,7 +19,7 @@ const CustomPieChart = ({data, label, colors, showTextAnchor, totalAmount}) => {
                 {data.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={colors[index % colors.length]}/>
                         ))}
-            </pie>
+            </Pie>
             <Tooltip content={CustomTooltip}/>
             <Legend content={CustomLegend}/>
 

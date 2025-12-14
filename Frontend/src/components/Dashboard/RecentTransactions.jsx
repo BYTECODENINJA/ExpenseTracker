@@ -14,7 +14,7 @@ const RecentTransactions = ({transactions, onSeeMore}) => {
                 </button>
             </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-3 gap-6 mt-6'>
+            <div className='grid grid-cols-1 md:grid-cols-1 gap-6 mt-6'>
                 {transactions?.slice(0,5)?.map(item => (
                         <TransactionInfoCard
                             key={item._id}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import DashboardLayout from "../../components/layouts/DashboardLayout.jsx";
 import axiosInstance from "../../utils/axiosInstance.js";
 import { API_PATHS } from "../../utils/apiPaths.js";
@@ -18,7 +18,7 @@ import RecentIncomeWithChart from "./RecentIncomeWithChart.jsx";
 import RecentIncome from "../../components/Dashboard/RecentIncome.jsx";
 
 const Home = () => {
-    useUserAuth()
+    const { user, loading: authLoading } = useUserAuth()
 
     const [dashboardData, setDashboardData] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -26,9 +26,7 @@ const Home = () => {
     const location = useLocation();
 
 
-    const fetchDashboardData = async () => {
-        if (loading) return;
-
+    const fetchDashboardData = useCallback(async () => {
         setLoading(true)
 
         try {
@@ -44,12 +42,15 @@ const Home = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, []);
 
     useEffect(() => {
-        fetchDashboardData();
+        // Only fetch when user is authenticated and not loading
+        if (user && !authLoading) {
+            fetchDashboardData();
+        }
         return () => { };
-    }, [location.pathname])
+    }, [user, authLoading, location.pathname, fetchDashboardData])
 
     return (
         <DashboardLayout activeMenu="Dashboard">

@@ -4,8 +4,11 @@ import {LuUtensils,LuTrendingUp,LuTrendingDown,LuTrash2} from "react-icons/lu";
 const TransactionInfoCard = ({
     title, icon, date, amount, type, hideDeleteBtn, onDelete}) => {
 
+    // Normalize type to lowercase for comparison
+    const normalizedType = type?.toLowerCase();
+    
     const getAmountStyles = () =>
-        type === 'income'? 'bg-green-100 text-green-500': 'bg-red-100 text-red-500';
+        normalizedType === 'income'? 'bg-green-100 text-green-500': 'bg-red-100 text-red-500';
 
     // Check if icon is an emoji (string) or an image URL
     const isEmoji = (str) => {
@@ -47,9 +50,9 @@ const TransactionInfoCard = ({
                     )}
                 <div className={`flex items-center gap-2 px-3 py-1.5 rounded-md ${getAmountStyles()}`}>
                     <h6 className="font-medium">
-                        {type === 'income'? '+': '-'} Ksh{amount}
+                        {normalizedType === 'income'? '+': '-'} Ksh{amount}
                     </h6>
-                    {type === 'income'?
+                    {normalizedType === 'income'?
                         <LuTrendingUp className='text-green-500'/>
                     :
                         <LuTrendingDown className='text-red-500'/>

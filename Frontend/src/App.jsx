@@ -12,12 +12,12 @@ import Income from "./pages/Dashboard/Income.jsx";
 import Expense from "./pages/Dashboard/Expense.jsx";
 import { UserContext, UserContextProvider } from './context/userContext.jsx';
 import { useUserAuth } from './hooks/useUserAuth';
-import {Toaster} from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
     return (
         <UserContextProvider>
-            <Router>
+            <Router basename={import.meta.env.BASE_URL}>
                 <Toaster
                     position="top-right"
                     reverseOrder={false}

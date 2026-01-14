@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {HiOutlineMenu, HiOutlineX} from "react-icons/hi";
 import SideMenu  from "./SideMenu.jsx";
 
-const Navbar = ({activeMenu}) => {
+const Navbar = ({ user, activeMenu }) => {
     const [openSideMenu, setOpenSideMenu] = useState(false);
     return (
         <div className='flex gap-5 bg-[#3d6198] border border-b border-gray-200/50 backdrop-blur-[2px] py-4 px-7 sticky top-0 z-30'>
@@ -11,21 +11,22 @@ const Navbar = ({activeMenu}) => {
                         setOpenSideMenu(!openSideMenu);
                     }}>
                 {openSideMenu ? (
-                    <HiOutlineX className='text-2xl'/>
+                    <HiOutlineX className='text-2xl text-white'/>
                 ) :(
-                    <HiOutlineMenu className='text-2xl'/>
+                    <HiOutlineMenu className='text-2xl text-white'/>
                 )}
             </button>
 
             <h2 className='text-2xl font-medium text-white'>Expense Tracker</h2>
 
             {openSideMenu && (
-                <div className='fixed top-[61px] -ml-4 bg-white'>
-                    <SideMenu activeMenu={activeMenu}/>
+                <div className='fixed top-[61px] left-0 w-full h-screen bg-black/50 z-20' onClick={() => setOpenSideMenu(false)}>
+                    <div className='bg-white w-64 h-full' onClick={(e) => e.stopPropagation()}>
+                        <SideMenu user={user} activeMenu={activeMenu}/>
+                    </div>
                 </div>
             )}
         </div>
-
     )
 }
 export default Navbar

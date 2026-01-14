@@ -71,6 +71,7 @@ const Login = () => {
                     {error && <p className="text-red-500 pb-2.5">{error}</p>}
                     <button type="submit" className="w-full mt-6 py-2 rounded-md bg-primary text-white">Login</button>
                     <p className="text-sm text-slate-500 mt-[10px]">Don't have an account? <a href="/signup" className="text-primary">Sign Up</a></p>
+                    <p className="text-lg text-slate-500 mt-[10px]">Ensure you reload to view content</p>
                 </form>
             </div>
         </AuthLayout>

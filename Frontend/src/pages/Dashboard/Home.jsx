@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import DashboardLayout from "../../components/layouts/DashboardLayout.jsx";
 import axiosInstance from "../../utils/axiosInstance.js";
 import { API_PATHS } from "../../utils/apiPaths.js";
@@ -7,7 +7,7 @@ import InfoCard from "../../components/Cards/InfoCard.jsx";
 
 import { LuHandCoins, LuWalletMinimal } from "react-icons/lu";
 import { IoMdCard } from "react-icons/io";
-import { useUserAuth } from "../../hooks/useUserAuth.jsx";
+import { UserContext } from "../../context/userContext.jsx";
 import { addThousandsSeparator } from "../../utils/helper.js";
 import RecentTransactions from "../../components/Dashboard/RecentTransactions.jsx";
 import FinanceOverview from "../../components/Dashboard/FinanceOverview.jsx";
@@ -18,7 +18,7 @@ import RecentIncomeWithChart from "./RecentIncomeWithChart.jsx";
 import RecentIncome from "../../components/Dashboard/RecentIncome.jsx";
 
 const Home = () => {
-    const { user, loading: authLoading } = useUserAuth()
+    const { user, loading: authLoading } = useContext(UserContext);
 
     const [dashboardData, setDashboardData] = useState(null);
     const [loading, setLoading] = useState(false);
